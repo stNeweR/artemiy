@@ -1,8 +1,16 @@
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: Arial, sans-serif;
     line-height: 3;
     margin: 0;
     padding: 0;
+}
+
+p {
+    margin: 0;
 }
 
 header {
@@ -58,4 +66,48 @@ footer {
     margin-left: auto;
     margin-right: auto;
     width: 20%;
+}
+
+.form {
+    width: 80%;
+    margin: 0px auto;
+
+    .input {
+        display: flex;
+        flex-direction: column;
+        align-items: start;
+
+        input {
+            width: 100%;
+        }
+    }
+
+    h1 {
+        margin: 0px;
+    }
+
+    textarea {
+        width: 100%;
+    }
+
+    button {
+        padding: 10px 20px;
+    }
+}
+
+.review {
+    display: flex;
+    flex-direction: column;
+    border: solid 1px gray;
+    margin: 10px auto;
+    padding: 4px 10px;
+
+    p {
+        text-align: start;
+    }
+}
+
+.review__person {
+    display: flex;
+    justify-content: space-between;
 }

@@ -17,6 +17,7 @@
                 <li><a href="figure.php">Фигуры</a></li>
                 <li><a href="about.php">О сайте</a></li>
                 <li><a href="contact.php">Контакты</a></li>
+                <li><a href="review.php">Отзывы</a></li>
             </ul>
         </nav>
     </header>
