@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  nginx:
+    container_name: nginx
+    image: nginx:latest
+    volumes:
+      - ./:/var/www/
+      - ./docker/conf.d/:/etc/nginx/conf.d/
+    ports:
+      - "8080:80"
+    depends_on:
+      - php
+
+  php:
+    container_name: php
+    build: 
+      context: .
+      dockerfile: docker/php/Dockerfile
+    volumes:
+      - ./:/var/www
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      - db
+
+  db:
+    container_name: db
+    image: mysql:8.0
+    restart: always
+    volumes:
+      - ./tmp/db:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: artemiy
+    ports:
+      - 8081:3306
