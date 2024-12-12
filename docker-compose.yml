@@ -31,7 +31,9 @@ services:
     volumes:
       - ./tmp/db:/var/lib/mysql
     environment:
+      MYSQL_DATABASE: chess
+      MYSQL_USER: user
+      MYSQL_PASSWORD: secret
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: artemiy
     ports:
       - 8081:3306

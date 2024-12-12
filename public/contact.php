@@ -37,10 +37,10 @@
                         <input type="tel" name="phone" id="phone">
                     </div>
                     <div class="input">
-                        <label for="body">Расскажите немного о себе:</label>
+                        <label for="body">Текст отзыва:</label>
                         <textarea id="body" name="body"></textarea>
                     </div>
-                    <button type="submit">Оставить заявку</button>
+                    <button type="submit">Оставить отзыв</button>
                 </form>
             </div>
         </main>
