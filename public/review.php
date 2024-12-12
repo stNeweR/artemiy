@@ -17,7 +17,50 @@ $reviews = $pdo->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/style.css">
-    <title>Контакты</title>
+    <title>Отзывы</title>
+    <style>
+        .slider {
+            position: relative;
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+        }
+
+        .slides {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .review {
+            min-width: 100%;
+            box-sizing: border-box;
+            padding: 20px;
+        }
+
+        .review__person {
+            font-weight: bold;
+        }
+
+        .prev, .next {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(255, 255, 255, 0.7);
+            border: none;
+            cursor: pointer;
+            padding: 10px;
+        }
+
+        .prev {
+            left: 10px;
+        }
+
+        .next {
+            right: 10px; 
+        }
+    </style>
 </head>
 
 <body>
@@ -33,27 +76,59 @@ $reviews = $pdo->query($sql);
             </ul>
         </nav>
     </header>
+
     <main>
         <h2>Отзывы</h2>
-        <div>
-            <?php
-            foreach ($reviews as $key => $review) {
-            ?>
-                <div class="review">
-                    <div class="review__person">
-                        <b>Автор отзыва: <?= $review['name'] ?></b>
-                        <p>Номер телефона: <?= $review['phone'] ?></p>
+        <div class="slider">
+            <div class="slides">
+                <?php foreach ($reviews as $review) { ?>
+                    <div class="review">
+                        <div class="review__person">
+                            <b>Автор отзыва: <?= htmlspecialchars($review['name']) ?></b><br>
+                            Номер телефона: <?= htmlspecialchars($review['phone']) ?>
+                        </div>
+                        <p>Отзыв:<br><?= nl2br(htmlspecialchars($review['body'])) ?></p>
                     </div>
-                    <p>
-                        Отзыв:
-                        <?= $review['body'] ?>
-                    </p>
-                </div>
-            <?php
-            }
-            ?>
+                <?php } ?>
+            </div>
+
+            <button class="prev" onclick="changeSlide(-1)">&#10094;</button>
+            <button class="next" onclick="changeSlide(1)">&#10095;</button>
         </div>
+
+        <script>
+            let currentSlide = 0;
+
+            function showSlide(index) {
+                const slides = document.querySelector('.slides');
+                const totalSlides = document.querySelectorAll('.review').length;
+
+                if (index >= totalSlides) {
+                    currentSlide = 0;
+                } else if (index < 0) {
+                    currentSlide = totalSlides - 1;
+                } else {
+                    currentSlide = index;
+                }
+
+                slides.style.transform = 'translateX(' + (-currentSlide * 100) + '%)';
+            }
+
+            function changeSlide(direction) {
+                showSlide(currentSlide + direction);
+            }
+
+            // Автоматическая смена слайдов
+            setInterval(() => {
+                showSlide(currentSlide + 1);
+            }, 5000); // смена каждые 5 секунд
+
+            // Показать первый слайд
+            showSlide(currentSlide);
+        </script>
+
     </main>
+
     <footer>
         <p>&copy; 2024 Шахматы</p>
     </footer>
